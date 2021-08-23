@@ -38,9 +38,37 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    let arr10 = [];
+
+    let symbolLength = 10;
+    let symbolCount = expr.length / symbolLength;
+    console.log(symbolCount);
+
+    for(let i = 0; i < expr.length; i += symbolLength){
+        arr10.push(expr.substr(i, symbolLength));
+    }
+
+    return arr10.map(element10 => {
+        if (element10[0] === '*') return ' ';
+        let element = String(Number(element10));
+        arr2 = [];
+        for(let i = 0; i < element.length; i += 2){
+            if (element.substr(i, 2) == 10) arr2.push('.');
+            else arr2.push('-');
+        }
+        return MORSE_TABLE[arr2.join('')];
+    }).join('');
 }
 
 module.exports = {
     decode
 }
+
+// 1) Делим входящюю строку на массив, в элементах которго 10 символов.
+// 1.1) Если в элементе одни *, то преобразуем элемент к пробелу.
+// 2) Преобразуем элемент массива к числу, чтобы избавиться от нулей в начале елемента.
+// 3) Преобразуем число обратно к строке.
+// 4) Делим строку на подмассив, в элементах которого 2 цифры.
+// 5) Преобразуем элемент подмассива к . и -
+// 6) Объединяем подмассив в строку
+// 7) Преобразуем строку к символу
